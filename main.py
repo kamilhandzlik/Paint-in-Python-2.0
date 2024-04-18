@@ -15,13 +15,29 @@ canvas = Canvas(frame2, height=500, width=1100, bg="white")
 canvas.grid(row=0, column=0)
 
 
+# variables for pencil
+
+prev_point = [0, 0]
+current_point = [0, 0]
+
+
 def paint(event):
+    global prev_point
+    global current_point
     x = event.x
     y = event.y
-    canvas.create_line(x, y, 120, 120, fill="black")
+    current_point = [x, y]
+    canvas.create_oval(x, y, x + 1, y + 1, fill="black")
+
+    if prev_point != 0:
+        canvas.create_line(
+            prev_point[0], prev_point[1], current_point[0], current_point[1]
+        )
+
+    prev_point = current_point
 
 
-canvas.bind("<Button-1>", paint)
+canvas.bind("<B1-Motion>", paint)
 
 root.resizable(False, False)
 root.mainloop()
