@@ -22,22 +22,27 @@ current_point = [0, 0]
 
 
 def paint(event):
+    print(event.type)
     global prev_point
     global current_point
     x = event.x
     y = event.y
     current_point = [x, y]
-    canvas.create_oval(x, y, x + 1, y + 1, fill="black")
+    # type of code to make brush for future reference canvas.create_oval(x, y, x + 1, y + 1, fill="black")
 
-    if prev_point != 0:
+    if prev_point != [0, 0]:
         canvas.create_line(
             prev_point[0], prev_point[1], current_point[0], current_point[1]
         )
 
     prev_point = current_point
 
+    if event.type == "5":
+        prev_point = [0, 0]
+
 
 canvas.bind("<B1-Motion>", paint)
+canvas.bind("<ButtonRelease-1>", paint)
 
 root.resizable(False, False)
 root.mainloop()
