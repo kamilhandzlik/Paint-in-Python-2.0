@@ -4,10 +4,24 @@ root = Tk()
 root.title("My Paint")
 root.geometry("1100x600")
 
-
+# frame1 is toolbar
 frame1 = Frame(root, height=100, width=1100, bg="red")
-frame1.grid(row=0, column=0)
+frame1.grid(row=0, column=0, sticky=NW)
 
+tools_frame = Frame(frame1, height=100, width=100, bg="green")
+tools_frame.grid(row=1, column=0)
+
+
+pencil_button = Button(tools_frame, text="Pencil", width=10)
+pencil_button.grid(row=0, column=0)
+
+eraser_button = Button(tools_frame, text="Eraser", width=10)
+eraser_button.grid(row=1, column=0)
+
+tools_label = Button(tools_frame, text="Tools", width=10)
+tools_label.grid(row=2, column=0)
+
+# frame 2 is canvas
 frame2 = Frame(root, height=500, width=1100, bg="blue")
 frame2.grid(row=1, column=0)
 
@@ -22,7 +36,6 @@ current_point = [0, 0]
 
 
 def paint(event):
-    print(event.type)
     global prev_point
     global current_point
     x = event.x
