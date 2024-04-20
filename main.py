@@ -1,25 +1,68 @@
 from tkinter import *
+from PIL import ImageTk, Image
 
 root = Tk()
 root.title("My Paint")
 root.geometry("1100x600")
 
+# Loading image
+pencil_image = Image.open("pencil.png")
+eraser_image = Image.open("eraser.png")
+
+# Resizing image
+resized_pencil = pencil_image.resize((30, 30))
+resized_eraser = eraser_image.resize((30, 30))
+
+
+# Giving resized image variable easier name ;)
+pencil_img = ImageTk.PhotoImage(resized_pencil)
+eraser_img = ImageTk.PhotoImage(resized_eraser)
+
+
 # frame1 is toolbar
 frame1 = Frame(root, height=100, width=1100, bg="red")
 frame1.grid(row=0, column=0, sticky=NW)
 
-tools_frame = Frame(frame1, height=100, width=100, bg="green")
+tools_frame = Frame(frame1, height=30, width=30, bg="green")
 tools_frame.grid(row=1, column=0)
 
-
-pencil_button = Button(tools_frame, text="Pencil", width=10)
+# buttons as images- uncomment if you prefer this version don't forget to change height and width in tool frames  to 30x30
+pencil_button = Button(
+    tools_frame,
+    image=pencil_img,
+    height=30,
+    width=30,
+    command=lambda: stroke_color.set("black"),
+    borderwidth=0,
+)
 pencil_button.grid(row=0, column=0)
 
-eraser_button = Button(tools_frame, text="Eraser", width=10)
+
+eraser_button = Button(
+    tools_frame,
+    image=eraser_img,
+    height=30,
+    width=30,
+    command=lambda: stroke_color.set("white"),
+    borderwidth=0,
+)
 eraser_button.grid(row=1, column=0)
 
-tools_label = Button(tools_frame, text="Tools", width=10)
-tools_label.grid(row=2, column=0)
+
+# buttons as text - uncomment if you prefer this version don't forget to change height and width in tool frames  to 100x100
+
+# pencil_button = Button(
+#     tools_frame, text="Pencil", width=10, command=lambda: stroke_color.set("black")
+# )
+# pencil_button.grid(row=0, column=0)
+# eraser_button = Button(
+#     tools_frame, text="Eraser", width=10, command=lambda: stroke_color.set("white")
+# )
+# eraser_button.grid(row=1, column=0)
+
+# tools_label = Button(tools_frame, text="Tools", width=10)
+# tools_label.grid(row=2, column=0)
+
 
 # frame 2 is canvas
 frame2 = Frame(root, height=500, width=1100, bg="blue")
@@ -27,6 +70,10 @@ frame2.grid(row=1, column=0)
 
 canvas = Canvas(frame2, height=500, width=1100, bg="white")
 canvas.grid(row=0, column=0)
+
+
+stroke_color = StringVar()
+stroke_color.set("green")
 
 
 # variables for pencil
@@ -45,7 +92,11 @@ def paint(event):
 
     if prev_point != [0, 0]:
         canvas.create_line(
-            prev_point[0], prev_point[1], current_point[0], current_point[1]
+            prev_point[0],
+            prev_point[1],
+            current_point[0],
+            current_point[1],
+            fill=stroke_color.get(),
         )
 
     prev_point = current_point
