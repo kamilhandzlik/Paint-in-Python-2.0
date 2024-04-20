@@ -8,15 +8,18 @@ root.geometry("1100x600")
 # Loading image
 pencil_image = Image.open("pencil.png")
 eraser_image = Image.open("eraser.png")
+tools_label_image = Image.open("tools label.png")
 
 # Resizing image
 resized_pencil = pencil_image.resize((30, 30))
 resized_eraser = eraser_image.resize((30, 30))
+resized_tools_label = tools_label_image.resize((30, 30))
 
 
 # Giving resized image variable easier name ;)
 pencil_img = ImageTk.PhotoImage(resized_pencil)
 eraser_img = ImageTk.PhotoImage(resized_eraser)
+tools_label_img = ImageTk.PhotoImage(resized_tools_label)
 
 
 # frame1 is toolbar
@@ -26,13 +29,23 @@ frame1.grid(row=0, column=0, sticky=NW)
 tools_frame = Frame(frame1, height=30, width=30, bg="green")
 tools_frame.grid(row=1, column=0)
 
+
+def use_pencil():
+    stroke_color.set("black")
+
+
+def use_eraser():
+    stroke_color.set("white")
+    canvas["cursor"] = DOTBOX
+
+
 # buttons as images- uncomment if you prefer this version don't forget to change height and width in tool frames  to 30x30
 pencil_button = Button(
     tools_frame,
     image=pencil_img,
     height=30,
     width=30,
-    command=lambda: stroke_color.set("black"),
+    command=use_pencil,
     borderwidth=0,
 )
 pencil_button.grid(row=0, column=0)
@@ -43,10 +56,21 @@ eraser_button = Button(
     image=eraser_img,
     height=30,
     width=30,
-    command=lambda: stroke_color.set("white"),
+    command=use_eraser,
     borderwidth=0,
 )
 eraser_button.grid(row=1, column=0)
+
+
+tools_label = Button(
+    tools_frame,
+    image=tools_label_img,
+    height=30,
+    width=30,
+    command=lambda: stroke_color.set("white"),
+    borderwidth=0,
+)
+tools_label.grid(row=2, column=0)
 
 
 # buttons as text - uncomment if you prefer this version don't forget to change height and width in tool frames  to 100x100
