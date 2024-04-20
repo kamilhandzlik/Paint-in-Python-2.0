@@ -36,7 +36,7 @@ def use_pencil():
 
 def use_eraser():
     stroke_color.set("white")
-    canvas["cursor"] = DOTBOX
+    # canvas["cursor"] = DOTBOX
 
 
 # buttons as images- uncomment if you prefer this version don't forget to change height and width in tool frames  to 30x30
