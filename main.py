@@ -23,20 +23,21 @@ tools_label_img = ImageTk.PhotoImage(resized_tools_label)
 
 
 # frame1 is toolbar
-frame1 = Frame(root, height=100, width=1100, bg="red")
+frame1 = Frame(root, height=100, width=1100)
 frame1.grid(row=0, column=0, sticky=NW)
 
-tools_frame = Frame(frame1, height=30, width=30, bg="green")
+tools_frame = Frame(frame1, height=30, width=30)
 tools_frame.grid(row=1, column=0)
 
 
 def use_pencil():
     stroke_color.set("black")
+    canvas["cursor"] = "crosshair"
 
 
 def use_eraser():
     stroke_color.set("white")
-    # canvas["cursor"] = DOTBOX
+    canvas["cursor"] = DOTBOX
 
 
 # buttons as images- uncomment if you prefer this version don't forget to change height and width in tool frames  to 30x30
@@ -86,6 +87,24 @@ tools_label.grid(row=2, column=0)
 
 # tools_label = Button(tools_frame, text="Tools", width=10)
 # tools_label.grid(row=2, column=0)
+
+
+size_frame = Frame(frame1, height=100, width=100)
+size_frame.grid(row=1, column=1)
+
+default_button = Button(size_frame, text="Default", width=10, command=use_pencil)
+default_button.grid(row=0, column=0)
+
+stroke_size = IntVar
+
+options = [1, 2, 3, 4, 5]
+
+size_list = OptionMenu(size_frame, stroke_size, *options)
+size_list.grid(row=1, column=0)
+
+
+size_label = Label(size_frame, text="Size", width=10)
+size_label.grid(row=2, column=0)
 
 
 # frame 2 is canvas
