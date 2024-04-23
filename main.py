@@ -5,6 +5,13 @@ root = Tk()
 root.title("My Paint")
 root.geometry("1100x600")
 
+stroke_size = IntVar()
+stroke_size.set(1)
+
+stroke_color = StringVar()
+stroke_color.set("black")
+
+
 # Loading image
 pencil_image = Image.open("pencil.png")
 eraser_image = Image.open("eraser.png")
@@ -30,6 +37,7 @@ tools_frame = Frame(frame1, height=30, width=30)
 tools_frame.grid(row=1, column=0)
 
 
+# Tools frame
 def use_pencil():
     stroke_color.set("black")
     canvas["cursor"] = "crosshair"
@@ -89,13 +97,12 @@ tools_label.grid(row=2, column=0)
 # tools_label.grid(row=2, column=0)
 
 
+# Size Frame
 size_frame = Frame(frame1, height=100, width=100)
 size_frame.grid(row=1, column=1)
 
 default_button = Button(size_frame, text="Default", width=10, command=use_pencil)
 default_button.grid(row=0, column=0)
-
-stroke_size = IntVar
 
 options = [1, 2, 3, 4, 5]
 
@@ -113,10 +120,6 @@ frame2.grid(row=1, column=0)
 
 canvas = Canvas(frame2, height=500, width=1100, bg="white")
 canvas.grid(row=0, column=0)
-
-
-stroke_color = StringVar()
-stroke_color.set("green")
 
 
 # variables for pencil
@@ -140,6 +143,7 @@ def paint(event):
             current_point[0],
             current_point[1],
             fill=stroke_color.get(),
+            width=stroke_size.get(),
         )
 
     prev_point = current_point
