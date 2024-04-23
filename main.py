@@ -137,12 +137,13 @@ def paint(event):
     # type of code to make brush for future reference canvas.create_oval(x, y, x + 1, y + 1, fill="black")
 
     if prev_point != [0, 0]:
-        canvas.create_line(
+        canvas.create_polygon(
             prev_point[0],
             prev_point[1],
             current_point[0],
             current_point[1],
             fill=stroke_color.get(),
+            outline=stroke_color.get(),
             width=stroke_size.get(),
         )
 
