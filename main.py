@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from tkinter import colorchooser
 
 root = Tk()
 root.title("My Paint")
@@ -33,7 +34,7 @@ tools_label_img = ImageTk.PhotoImage(resized_tools_label)
 frame1 = Frame(root, height=100, width=1100)
 frame1.grid(row=0, column=0, sticky=NW)
 
-tools_frame = Frame(frame1, height=30, width=30)
+tools_frame = Frame(frame1, height=30, width=30, relief=SUNKEN, borderwidth=3)
 tools_frame.grid(row=1, column=0)
 
 
@@ -98,13 +99,13 @@ tools_label.grid(row=2, column=0)
 
 
 # Size Frame
-size_frame = Frame(frame1, height=100, width=100)
+size_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=3)
 size_frame.grid(row=1, column=1)
 
 default_button = Button(size_frame, text="Default", width=10, command=use_pencil)
 default_button.grid(row=0, column=0)
 
-options = [1, 2, 3, 4, 5]
+options = [1, 2, 3, 4, 5, 6, 20]
 
 size_list = OptionMenu(size_frame, stroke_size, *options)
 size_list.grid(row=1, column=0)
@@ -112,6 +113,22 @@ size_list.grid(row=1, column=0)
 
 size_label = Label(size_frame, text="Size", width=10)
 size_label.grid(row=2, column=0)
+
+
+# cololr box frame
+color_box_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=3)
+color_box_frame.grid(row=1, column=2)
+
+
+def select_color():
+    selected_color = colorchooser.askcolor(title="Select Color")
+    print(select_color)
+
+
+color_box_button = Button(
+    color_box_frame, text="Select Color", width=10, command=select_color
+)
+color_box_button.grid(row=0, column=0)
 
 
 # frame 2 is canvas
