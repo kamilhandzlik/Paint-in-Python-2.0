@@ -115,7 +115,7 @@ size_label = Label(size_frame, text="Size", width=10)
 size_label.grid(row=2, column=0)
 
 
-# cololr box frame
+# color box frame
 color_box_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=3)
 color_box_frame.grid(row=1, column=2)
 
@@ -123,6 +123,10 @@ color_box_frame.grid(row=1, column=2)
 def select_color():
     selected_color = colorchooser.askcolor(title="Select Color")
     print(select_color)
+    if selected_color[1] == None:
+        selected_color.set("black")
+    else:
+        stroke_color.set(selected_color[1])
 
 
 color_box_button = Button(
