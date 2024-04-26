@@ -105,7 +105,7 @@ size_frame.grid(row=1, column=1)
 default_button = Button(size_frame, text="Default", width=10, command=use_pencil)
 default_button.grid(row=0, column=0)
 
-options = [1, 2, 3, 4, 5, 6, 20]
+options = [1, 2, 3, 4, 5, 10, 20, 40]
 
 size_list = OptionMenu(size_frame, stroke_size, *options)
 size_list.grid(row=1, column=0)
@@ -119,20 +119,47 @@ size_label.grid(row=2, column=0)
 color_box_frame = Frame(frame1, height=100, width=100)
 color_box_frame.grid(row=1, column=2)
 
+previous_color = StringVar()
+previous_color.set("white")
+
+previous_color_2 = StringVar()
+previous_color_2.set("black")
+
 
 def select_color():
     selected_color = colorchooser.askcolor(title="Select Color")
-    print(select_color)
     if selected_color[1] == None:
         selected_color.set("black")
     else:
         stroke_color.set(selected_color[1])
+        previous_color_2.set(previous_color.get())
+        previous_color.set(selected_color[1])
+
+        previous_color_button["bg"] = previous_color.get()
+        previous_color_2_button["bg"] = previous_color_2.get()
 
 
 color_box_button = Button(
     color_box_frame, text="Select Color", width=10, command=select_color
 )
 color_box_button.grid(row=0, column=0)
+
+previous_color_button = Button(
+    color_box_frame,
+    text="Previous",
+    width=10,
+    command=lambda: stroke_color.set(previous_color.get()),
+)
+previous_color_button.grid(row=1, column=0)
+
+previous_color_2_button = Button(
+    color_box_frame,
+    text="Previous 2",
+    width=10,
+    command=lambda: stroke_color.set(previous_color_2.get()),
+)
+previous_color_2_button.grid(row=2, column=0)
+
 
 # colors frame
 colors_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=2)
