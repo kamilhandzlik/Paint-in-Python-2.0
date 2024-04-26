@@ -165,6 +165,35 @@ blue_button = Button(
 )
 blue_button.grid(row=2, column=0)
 
+
+orange_button = Button(
+    colors_frame,
+    text="Orange",
+    bg="orange",
+    width=10,
+    command=lambda: stroke_color.set("orange"),
+)
+orange_button.grid(row=0, column=1)
+
+yellow_button = Button(
+    colors_frame,
+    text="yellow",
+    bg="yellow",
+    width=10,
+    command=lambda: stroke_color.set("yellow"),
+)
+yellow_button.grid(row=1, column=1)
+
+purple_button = Button(
+    colors_frame,
+    text="Purple",
+    bg="purple",
+    width=10,
+    command=lambda: stroke_color.set("purple"),
+)
+purple_button.grid(row=2, column=1)
+
+
 # frame 2 is canvas
 frame2 = Frame(root, height=500, width=1100, bg="blue")
 frame2.grid(row=1, column=0)
