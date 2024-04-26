@@ -116,7 +116,7 @@ size_label.grid(row=2, column=0)
 
 
 # color box frame
-color_box_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=3)
+color_box_frame = Frame(frame1, height=100, width=100)
 color_box_frame.grid(row=1, column=2)
 
 
@@ -134,6 +134,36 @@ color_box_button = Button(
 )
 color_box_button.grid(row=0, column=0)
 
+# colors frame
+colors_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=2)
+colors_frame.grid(row=1, column=3)
+
+red_button = Button(
+    colors_frame,
+    text="Red",
+    bg="red",
+    width=10,
+    command=lambda: stroke_color.set("red"),
+)
+red_button.grid(row=0, column=0)
+
+green_button = Button(
+    colors_frame,
+    text="Green",
+    bg="green",
+    width=10,
+    command=lambda: stroke_color.set("green"),
+)
+green_button.grid(row=1, column=0)
+
+blue_button = Button(
+    colors_frame,
+    text="Blue",
+    bg="blue",
+    width=10,
+    command=lambda: stroke_color.set("blue"),
+)
+blue_button.grid(row=2, column=0)
 
 # frame 2 is canvas
 frame2 = Frame(root, height=500, width=1100, bg="blue")
