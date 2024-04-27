@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from tkinter import colorchooser
+from tkinter import colorchooser, filedialog, messagebox
+import PIL.ImageGrab as ImageGrab
 
 root = Tk()
 root.title("My Paint")
@@ -79,6 +80,18 @@ def paint(event):
         prev_point = [0, 0]
 
 
+def save_image():
+    file_location = filedialog.asksaveasfilename(defaultextension="jpg")
+    x = root.winfo_rootx()
+    y = root.winfo_rooty() + 100
+    img = ImageGrab.grab(bbox=(x, y, x + 1100, y + 500))
+    img.save(file_location)
+    show_image = messagebox.askyesno("Paint App", "Do you wnat to open this image")
+    print(show_image)
+    if show_image:
+        img.show()
+
+
 # ---------------------------------images------------------------------------------
 # Loading image
 pencil_image = Image.open("pencil.png")
@@ -142,21 +155,6 @@ tools_label = Button(
     borderwidth=0,
 )
 tools_label.grid(row=2, column=0)
-
-
-# buttons as text - uncomment if you prefer this version don't forget to change height and width in tool frames  to 100x100
-
-# pencil_button = Button(
-#     tools_frame, text="Pencil", width=10, command=lambda: stroke_color.set("black")
-# )
-# pencil_button.grid(row=0, column=0)
-# eraser_button = Button(
-#     tools_frame, text="Eraser", width=10, command=lambda: stroke_color.set("white")
-# )
-# eraser_button.grid(row=1, column=0)
-
-# tools_label = Button(tools_frame, text="Tools", width=10)
-# tools_label.grid(row=2, column=0)
 
 
 # Size Frame
@@ -259,6 +257,13 @@ purple_button = Button(
     command=lambda: stroke_color.set("purple"),
 )
 purple_button.grid(row=2, column=1)
+
+# save image frame
+save_image_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=2)
+save_image_frame.grid(row=1, column=4)
+
+save_image_button = Button(save_image_frame, text="Save", width=10, command=save_image)
+save_image_button.grid(row=0, column=0)
 
 
 # frame 2 is canvas
