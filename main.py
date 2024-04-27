@@ -6,13 +6,80 @@ root = Tk()
 root.title("My Paint")
 root.geometry("1100x600")
 
+
+# -----------------------------------variables------------------------------------------
+# stroke size options
+options = [1, 2, 3, 4, 5, 10, 20, 40]
+
 stroke_size = IntVar()
 stroke_size.set(1)
 
 stroke_color = StringVar()
 stroke_color.set("black")
 
+previous_color = StringVar()
+previous_color.set("white")
 
+previous_color_2 = StringVar()
+previous_color_2.set("black")
+
+# variables for pencil
+
+prev_point = [0, 0]
+current_point = [0, 0]
+
+
+# ---------------------------------functions---------------------------------
+# Tools frame
+def use_pencil():
+    stroke_color.set("black")
+    canvas["cursor"] = "crosshair"
+
+
+def use_eraser():
+    stroke_color.set("white")
+    canvas["cursor"] = DOTBOX
+
+
+def select_color():
+    selected_color = colorchooser.askcolor(title="Select Color")
+    if selected_color[1] == None:
+        selected_color.set("black")
+    else:
+        stroke_color.set(selected_color[1])
+        previous_color_2.set(previous_color.get())
+        previous_color.set(selected_color[1])
+
+        previous_color_button["bg"] = previous_color.get()
+        previous_color_2_button["bg"] = previous_color_2.get()
+
+
+def paint(event):
+    global prev_point
+    global current_point
+    x = event.x
+    y = event.y
+    current_point = [x, y]
+    # type of code to make brush for future reference canvas.create_oval(x, y, x + 1, y + 1, fill="black")
+
+    if prev_point != [0, 0]:
+        canvas.create_polygon(
+            prev_point[0],
+            prev_point[1],
+            current_point[0],
+            current_point[1],
+            fill=stroke_color.get(),
+            outline=stroke_color.get(),
+            width=stroke_size.get(),
+        )
+
+    prev_point = current_point
+
+    if event.type == "5":
+        prev_point = [0, 0]
+
+
+# ---------------------------------images------------------------------------------
 # Loading image
 pencil_image = Image.open("pencil.png")
 eraser_image = Image.open("eraser.png")
@@ -30,23 +97,17 @@ eraser_img = ImageTk.PhotoImage(resized_eraser)
 tools_label_img = ImageTk.PhotoImage(resized_tools_label)
 
 
+##################################################################################
+# ---------------------------------------user interface---------------------------#
+##################################################################################
+
+# --------------------------------------------frame1-------------------------------------
 # frame1 is toolbar
 frame1 = Frame(root, height=100, width=1100)
 frame1.grid(row=0, column=0, sticky=NW)
 
 tools_frame = Frame(frame1, height=30, width=30, relief=SUNKEN, borderwidth=3)
 tools_frame.grid(row=1, column=0)
-
-
-# Tools frame
-def use_pencil():
-    stroke_color.set("black")
-    canvas["cursor"] = "crosshair"
-
-
-def use_eraser():
-    stroke_color.set("white")
-    canvas["cursor"] = DOTBOX
 
 
 # buttons as images- uncomment if you prefer this version don't forget to change height and width in tool frames  to 30x30
@@ -105,8 +166,6 @@ size_frame.grid(row=1, column=1)
 default_button = Button(size_frame, text="Default", width=10, command=use_pencil)
 default_button.grid(row=0, column=0)
 
-options = [1, 2, 3, 4, 5, 10, 20, 40]
-
 size_list = OptionMenu(size_frame, stroke_size, *options)
 size_list.grid(row=1, column=0)
 
@@ -118,25 +177,6 @@ size_label.grid(row=2, column=0)
 # color box frame
 color_box_frame = Frame(frame1, height=100, width=100)
 color_box_frame.grid(row=1, column=2)
-
-previous_color = StringVar()
-previous_color.set("white")
-
-previous_color_2 = StringVar()
-previous_color_2.set("black")
-
-
-def select_color():
-    selected_color = colorchooser.askcolor(title="Select Color")
-    if selected_color[1] == None:
-        selected_color.set("black")
-    else:
-        stroke_color.set(selected_color[1])
-        previous_color_2.set(previous_color.get())
-        previous_color.set(selected_color[1])
-
-        previous_color_button["bg"] = previous_color.get()
-        previous_color_2_button["bg"] = previous_color_2.get()
 
 
 color_box_button = Button(
@@ -227,37 +267,6 @@ frame2.grid(row=1, column=0)
 
 canvas = Canvas(frame2, height=500, width=1100, bg="white")
 canvas.grid(row=0, column=0)
-
-
-# variables for pencil
-
-prev_point = [0, 0]
-current_point = [0, 0]
-
-
-def paint(event):
-    global prev_point
-    global current_point
-    x = event.x
-    y = event.y
-    current_point = [x, y]
-    # type of code to make brush for future reference canvas.create_oval(x, y, x + 1, y + 1, fill="black")
-
-    if prev_point != [0, 0]:
-        canvas.create_polygon(
-            prev_point[0],
-            prev_point[1],
-            current_point[0],
-            current_point[1],
-            fill=stroke_color.get(),
-            outline=stroke_color.get(),
-            width=stroke_size.get(),
-        )
-
-    prev_point = current_point
-
-    if event.type == "5":
-        prev_point = [0, 0]
 
 
 canvas.bind("<B1-Motion>", paint)
