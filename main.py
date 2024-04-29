@@ -81,15 +81,31 @@ def paint(event):
 
 
 def save_image():
-    file_location = filedialog.asksaveasfilename(defaultextension="jpg")
-    x = root.winfo_rootx()
-    y = root.winfo_rooty() + 100
-    img = ImageGrab.grab(bbox=(x, y, x + 1100, y + 500))
-    img.save(file_location)
-    show_image = messagebox.askyesno("Paint App", "Do you wnat to open this image")
-    print(show_image)
-    if show_image:
-        img.show()
+    try:
+        file_location = filedialog.asksaveasfilename(defaultextension="jpg")
+        x = root.winfo_rootx()
+        y = root.winfo_rooty() + 100
+        img = ImageGrab.grab(bbox=(x, y, x + 1100, y + 500))
+        img.save(file_location)
+        show_image = messagebox.askyesno("Paint App", "Do you want to open this image")
+        if show_image:
+            img.show()
+
+    except Exception as e:
+        messagebox.showinfo("Paint app: ", "Error occured")
+
+
+def clear():
+    if messagebox.askokcancel("Paint app: ", "Do you want to clear everything?"):
+        canvas.delete("all")
+
+
+def create_new():
+    if messagebox.askyesno(
+        "Paint app:", "Do you want to save before deleting everything?"
+    ):
+        save_image()
+    clear()
 
 
 # ---------------------------------images------------------------------------------
@@ -264,6 +280,12 @@ save_image_frame.grid(row=1, column=4)
 
 save_image_button = Button(save_image_frame, text="Save", width=10, command=save_image)
 save_image_button.grid(row=0, column=0)
+
+new_image_button = Button(save_image_frame, text="New", width=10, command=create_new)
+new_image_button.grid(row=1, column=0)
+
+clear_image_button = Button(save_image_frame, text="Clear", width=10, command=clear)
+clear_image_button.grid(row=2, column=0)
 
 
 # frame 2 is canvas
