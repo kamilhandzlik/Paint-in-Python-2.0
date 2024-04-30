@@ -108,6 +108,23 @@ def create_new():
     clear()
 
 
+def help():
+    messagebox.showinfo(
+        "Help",
+        "1. Click on Select Color Option select specific color\n2. Click on Clear to clear entire Canvas",
+    )
+
+
+def settings():
+    messagebox.showinfo("Settings", "Not availeble")
+
+
+def about():
+    messagebox.showinfo(
+        "About", "idk what i should put here but somebody said it was good practice"
+    )
+
+
 # ---------------------------------images------------------------------------------
 # Loading image
 pencil_image = Image.open("pencil.png")
@@ -286,6 +303,23 @@ new_image_button.grid(row=1, column=0)
 
 clear_image_button = Button(save_image_frame, text="Clear", width=10, command=clear)
 clear_image_button.grid(row=2, column=0)
+
+
+# help and settings frame
+help_settings_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=2)
+help_settings_frame.grid(row=1, column=5)
+
+
+about_button = Button(help_settings_frame, text="about", width=10, command=about)
+about_button.grid(row=0, column=0)
+
+help_button = Button(help_settings_frame, text="help", width=10, command=help)
+help_button.grid(row=1, column=0)
+
+settings_button = Button(
+    help_settings_frame, text="settings", width=10, command=settings
+)
+settings_button.grid(row=2, column=0)
 
 
 # frame 2 is canvas
