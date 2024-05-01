@@ -30,6 +30,10 @@ prev_point = [0, 0]
 current_point = [0, 0]
 
 
+# variables for text
+text_value = StringVar()
+
+
 # ---------------------------------functions---------------------------------
 # Tools frame
 def use_pencil():
@@ -123,6 +127,10 @@ def about():
     messagebox.showinfo(
         "About", "idk what i should put here but somebody said it was good practice"
     )
+
+
+def write_text(event):
+    canvas.create_text(event.x, event.y, text=text_value.get())
 
 
 # ---------------------------------images------------------------------------------
@@ -322,6 +330,17 @@ settings_button = Button(
 settings_button.grid(row=2, column=0)
 
 
+# text frame
+text_frame = Frame(frame1, height=100, width=200, relief=SUNKEN, borderwidth=2)
+text_frame.grid(row=1, column=6)
+
+text_title = Button(text_frame, text="Write your text here:", width=20, command=about)
+text_title.grid(row=0, column=0)
+
+text_button = Entry(text_frame, textvariable=text_value, width=20)
+text_button.grid(row=1, column=0)
+
+
 # frame 2 is canvas
 frame2 = Frame(root, height=500, width=1100, bg="blue")
 frame2.grid(row=1, column=0)
@@ -332,6 +351,7 @@ canvas.grid(row=0, column=0)
 
 canvas.bind("<B1-Motion>", paint)
 canvas.bind("<ButtonRelease-1>", paint)
+canvas.bind("<Button-2>", write_text)
 
 root.resizable(False, False)
 root.mainloop()
