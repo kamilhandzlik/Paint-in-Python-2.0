@@ -340,6 +340,13 @@ text_title.grid(row=0, column=0)
 text_button = Entry(text_frame, textvariable=text_value, width=20)
 text_button.grid(row=1, column=0)
 
+# note frame
+note_frame = Frame(frame1, height=100, width=400, relief=SUNKEN, borderwidth=2)
+note_frame.grid(row=1, column=7)
+
+note_button = Text(note_frame, bg="white", width=40, height=5)
+note_button.grid(row=0, column=0)
+
 
 # frame 2 is canvas
 frame2 = Frame(root, height=500, width=1100, bg="blue")
