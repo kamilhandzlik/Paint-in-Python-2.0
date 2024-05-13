@@ -138,17 +138,45 @@ def write_text(event):
 pencil_image = Image.open("pencil.png")
 eraser_image = Image.open("eraser.png")
 tools_label_image = Image.open("tools label.png")
+about_image = Image.open("about.png")
+clear_sign_image = Image.open("clear.png")
+default_image = Image.open("default.png")
+help_sign_image = Image.open("help.png")
+new_sign_image = Image.open("new.png")
+save_sign_image = Image.open("save.png")
+select_color_image = Image.open("select color.png")
+settings_sign_image = Image.open("settings.png")
+size_sign_image = Image.open("size.png")
+
 
 # Resizing image
 resized_pencil = pencil_image.resize((30, 30))
 resized_eraser = eraser_image.resize((30, 30))
 resized_tools_label = tools_label_image.resize((30, 30))
+resized_about_image = about_image.resize((30, 30))
+resized_clear_sign_image = clear_sign_image.resize((30, 30))
+resized_default_image = default_image.resize((30, 30))
+resized_help_sign_image = help_sign_image.resize((30, 30))
+resized_new_sign_image = new_sign_image.resize((30, 30))
+resized_save_sign_image = save_sign_image.resize((30, 30))
+resized_select_color_image = select_color_image.resize((60, 30))
+resized_settings_sign_image = settings_sign_image.resize((30, 30))
+resized_size_sign_image = size_sign_image.resize((30, 30))
 
 
 # Giving resized image variable easier name ;)
 pencil_img = ImageTk.PhotoImage(resized_pencil)
 eraser_img = ImageTk.PhotoImage(resized_eraser)
 tools_label_img = ImageTk.PhotoImage(resized_tools_label)
+about_img = ImageTk.PhotoImage(resized_about_image)
+clear_sign_img = ImageTk.PhotoImage(resized_clear_sign_image)
+default_img = ImageTk.PhotoImage(resized_default_image)
+help_sign_img = ImageTk.PhotoImage(resized_help_sign_image)
+new_sign_img = ImageTk.PhotoImage(resized_new_sign_image)
+save_sign_img = ImageTk.PhotoImage(resized_save_sign_image)
+select_color_img = ImageTk.PhotoImage(resized_select_color_image)
+settings_sign_img = ImageTk.PhotoImage(resized_settings_sign_image)
+size_sign_img = ImageTk.PhotoImage(resized_size_sign_image)
 
 
 ##################################################################################
@@ -202,14 +230,16 @@ tools_label.grid(row=2, column=0)
 size_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=3)
 size_frame.grid(row=1, column=1)
 
-default_button = Button(size_frame, text="Default", width=10, command=use_pencil)
+default_button = Button(
+    size_frame, image=default_img, height=30, width=30, command=use_pencil
+)
 default_button.grid(row=0, column=0)
 
 size_list = OptionMenu(size_frame, stroke_size, *options)
 size_list.grid(row=1, column=0)
 
 
-size_label = Label(size_frame, text="Size", width=10)
+size_label = Label(size_frame, image=size_sign_img, height=30, width=30)
 size_label.grid(row=2, column=0)
 
 
@@ -219,7 +249,7 @@ color_box_frame.grid(row=1, column=2)
 
 
 color_box_button = Button(
-    color_box_frame, text="Select Color", width=10, command=select_color
+    color_box_frame, image=select_color_img, height=30, width=60, command=select_color
 )
 color_box_button.grid(row=0, column=0)
 
@@ -300,16 +330,22 @@ purple_button = Button(
 purple_button.grid(row=2, column=1)
 
 # save image frame
-save_image_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=2)
+save_image_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, borderwidth=3)
 save_image_frame.grid(row=1, column=4)
 
-save_image_button = Button(save_image_frame, text="Save", width=10, command=save_image)
+save_image_button = Button(
+    save_image_frame, image=save_sign_img, height=30, width=30, command=save_image
+)
 save_image_button.grid(row=0, column=0)
 
-new_image_button = Button(save_image_frame, text="New", width=10, command=create_new)
+new_image_button = Button(
+    save_image_frame, image=new_sign_img, height=30, width=30, command=create_new
+)
 new_image_button.grid(row=1, column=0)
 
-clear_image_button = Button(save_image_frame, text="Clear", width=10, command=clear)
+clear_image_button = Button(
+    save_image_frame, image=clear_sign_img, height=30, width=30, command=clear
+)
 clear_image_button.grid(row=2, column=0)
 
 
@@ -318,14 +354,18 @@ help_settings_frame = Frame(frame1, height=100, width=100, relief=SUNKEN, border
 help_settings_frame.grid(row=1, column=5)
 
 
-about_button = Button(help_settings_frame, text="about", width=10, command=about)
+about_button = Button(
+    help_settings_frame, image=about_img, height=30, width=30, command=about
+)
 about_button.grid(row=0, column=0)
 
-help_button = Button(help_settings_frame, text="help", width=10, command=help)
+help_button = Button(
+    help_settings_frame, image=help_sign_img, height=30, width=30, command=help
+)
 help_button.grid(row=1, column=0)
 
 settings_button = Button(
-    help_settings_frame, text="settings", width=10, command=settings
+    help_settings_frame, image=settings_sign_img, height=30, width=30, command=settings
 )
 settings_button.grid(row=2, column=0)
 
